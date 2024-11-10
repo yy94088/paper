@@ -1,6 +1,6 @@
 #### 题目：
 
-​	HARNESSING EXPLANATIONS: LLM-TO-LM INTERPRETER FOR ENHANCED TEXT-ATTRIBUTED GRAPH REPRESENTATION LEARNING
+​	HARNESSING EXPLANATIONS: LLM-TO-LM INTERPRETER FOR ENHANCED TEXT-ATTRIBUTED GRAPH REPRESENTATION LEARNING. (ICLR 2024 5)
 
 #### 背景(传统方法)：
 
@@ -12,7 +12,7 @@
 
 #### 创新点：
 
-​	提示LLM执行零样本分类，请求其对决策过程进行文本解释，设计LLM-to-LM解释器，使用LLM-to-LM将解释翻译为结点特征向量表示，用特征向量处理下游GNN。
+​	提示LLM执行零样本分类，请求其对决策过程进行文本解释，设计LLM-to-LM解释器，使用LLM-to-LM将解释翻译为结点特征向量表示，将特征向量用于处理下游任务的GNNs。
 
 #### 介绍：
 
@@ -23,8 +23,6 @@
 $$\mathcal{G}=(\mathcal{V},A,\{s_{n}\}_{n\in\mathcal{V}})，\mathcal{V}$$表示具有N个结点的集合,$$A\in\mathbb{R}^{N\times N}$$是邻接矩阵，$$s_n\in \mathcal{D}^{L_n}$$是与结点$$n\in\mathcal{V}$$相关的文本序列，$$
 \mathcal{D}$$是单词或tokens字典，$$L_n$$是序列长度。本文研究结点分类任务，给定一些被标记的结点$$
 \mathcal{L}\subset \mathcal{V}$$,预测剩余未被标记的结点$$\mathcal{U}=\mathcal{V}\setminus \mathcal{L}$$
-
-
 
 ##### 语言模型用于文本分类：
 
@@ -39,8 +37,8 @@ $$
 
 ##### 大语言模型和提示：
 
-$$\mathcal{M}$$定义为一个LLM，tokens序列$$x = ( x_1 , x_2 , . . . , x_q )$$ 作为输入，tokens序列$$y = ( y_1 , y_2 , . . . , y_q )$$作为输出。模型$$ \mathcal{M}$$通常被训练优化条件概率分布$$p (y∣x)$$，其在给定x的情况下为每个可能的输出序列$$y$$分配概率。
-为了在输入序列$$x$$中包含提示符$$p$$，我们可以将它们连接成一个新的序列$$x = ( p , x 1 , x 2 , . . . , x q )$$。然后，我们使用$$\hat{x} $$ 来计算条件概率分布$$p ( y ∣ \hat{x} )$$。在形式上，输出序列$$y$$​在给定x的情况下的概率为：
+提示可以采用多种形式，例如单个句子或较长的段落，并且可以包含其他信息或约束来指导模型的行为,$$\mathcal{M}$$定义为一个LLM，tokens序列$$x = ( x_1 , x_2 , . . . , x_q )$$ 作为输入，tokens序列$$y = ( y_1 , y_2 , . . . , y_q )$$作为输出。模型$$ \mathcal{M}$$通常被训练优化条件概率分布$$p (y∣x)$$，其在给定x的情况下为每个可能的输出序列$$y$$分配概率。
+为了在输入序列$$x$$中包含提示符$$p$$，我们可以将它们连接成一个新的序列$$x = ( p , x 1 , x 2 , . . . , x q )$$。然后，我们使用$$\hat{x} $$ 来计算条件概率分布$$p ( y ∣ \hat{x} )$$。在形式上，输出序列$$y$$在给定x的情况下的概率为：
 $$
 p(y∣\hat x)=\prod^p_{i=1}(y_i∣y_{<i},\hat{x})
 $$
@@ -62,9 +60,11 @@ $$
 
 ![image-20241020105201112](./LMM-to-LM.assets/image-20241020105201112.png)
 
-![image-20241017205704507](D:\论文\LMM-to-LM.assets\image-20241017205704507.png)
+![image-20241103102354827](LMM-to-LM.assets/image-20241103102354827.png)
 
 ##### LM解释器的微调与节点特征提取：
+
+首先，将原始文本（标题和摘要）和LLM的解释转换成适合下游GNN任务需求的固定长度节点特征。采用的方法是微调一个较小的LM，充当LLM的文本解释的“解释器”。这一步骤背后的基本原理是，LLM和LM都具有明显的优势：LLM具有更强大的能力和更多的知识，但灵活性较低，而LM尽管能力不强大，但可以根据特定任务进行微调。因此，LM用于为GNN解释LLM的输出，文本解释充当有效的通信的中间媒介。然后，对LM进行微调，使其能够从解释中提取最有价值和任务相关的特征。
 
 首先对预训练的LM进行如下微调：让$$\mathrm{LM_{orig}}$$ 和$$\mathrm{LM_{expl}}$$分别作为原始文本序列$$s^{orig}$$ 和解释文本序列$$s^{expl}$$的输入。为每个源获取文本嵌入：
 
@@ -98,6 +98,8 @@ $$
 
 理论：给定以下条件：1）保真度：$$E$$是$$Z_L$$的良好代理，使得$$H(Z_l| E)=\epsilon，且\epsilon > 0$$；非冗余：$$Z_L$$包含不存在于$$Z$$中的信息，表示为$$H(y| Z,Z_L)= H(y| Z)-\epsilon'，其中\epsilon'>\epsilon$$，则$$H(y| Z，E)< H(y| Z)$$。
 
+![8fbb845b791dac9ea5e78692575dff6](LMM-to-LM.assets/8fbb845b791dac9ea5e78692575dff6.jpg)
+
 #### 实验结果：
 
 ![image-20241020105216248](./LMM-to-LM.assets/image-20241020105216248.png)
@@ -106,7 +108,7 @@ $$
 
 #### 局限性：
 
-​	需要为每个数据集制定提示，依赖于手工制作的提示。未来会往自动化提示生成过程发展或探索替代提示设计、发展TAG
+​	需要为每个数据集制定提示，依赖于手工制作的提示，这可能不是每个数据集的节点分类任务的最佳选择。未来会往自动化提示生成过程发展或探索替代提示设计、发展TAG
 
 
 

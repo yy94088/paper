@@ -1,6 +1,6 @@
 #### Title:
 
-Let Your Graph Do the Talking: Encoding Structured Data for LLMs
+Let Your Graph Do the Talking: Encoding Structured Data for LLMs.
 
 #### Background:
 

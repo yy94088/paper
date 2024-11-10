@@ -1,6 +1,6 @@
 #### Title:
 
-GraphGPT: Graph Instruction Tuning for Large Language Models
+GraphGPT: Graph Instruction Tuning for Large Language Models. (SIGIR 2024 5)
 
 #### Background:
 

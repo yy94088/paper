@@ -1,6 +1,6 @@
 #### Title:
 
-G-Retriever: Retrieval-Augmented Generation for Textual Graph Understanding and Question Answering
+G-Retriever: Retrieval-Augmented Generation for Textual Graph Understanding and Question Answering.
 
 #### Background:
 

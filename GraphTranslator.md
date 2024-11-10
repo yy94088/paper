@@ -1,6 +1,6 @@
 #### Title：
 
-​	GraphTranslator: Aligning Graph Model to Large Language Model for Open-ended Tasks.
+​	GraphTranslator: Aligning Graph Model to Large Language Model for Open-ended Tasks. (WWW 2024 5)
 
 #### Background：
 
@@ -10,11 +10,6 @@
 
 1. To break this dilemma, we propose to bridge the pretrained graph model（GM） and LLM by a Translator, named GraphTranslator, aiming to leverage GM to handle the pre-defined tasks effectively and utilize the extended interface of LLMs to offer various open-ended tasks for GM.
 2. To train such Translator, we propose a Producer capable of constructing the graph-text alignment data along node information, neighbor information and model information.
-
-#### Challenge：
-
-1. There exists a significant modality gap between the pre-trained GM and LLM, due to their differences in data format and processing mechanisms.
-2. There lacks alignment data for bridging GM and LLM. Without natural alignment data, it’s difficult to train models to understand and translate between the two modalities (node embeddings and textual tokens) effectively.
 
 #### Contributions：
 

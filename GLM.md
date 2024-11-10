@@ -1,10 +1,10 @@
 #### Title:
 
-​	Language is All a Graph Needs.
+Language is All a Graph Needs. (EACL 2024 2)
 
 #### Background:
 
-​	The emergence of large-scale pre-trained language models has revolutionized various AI research domains. Considering the rising prominence of LLMs, it becomes essential to explore whether LLMs can also replace GNNs as the foundation model for graphs.
+The emergence of large-scale pre-trained language models has revolutionized various AI research domains. Considering the rising prominence of LLMs, it becomes essential to explore whether LLMs can also replace GNNs as the foundation model for graphs.
 
 #### Related work:
 
@@ -86,7 +86,7 @@ $$
 P_θ (y_j | x, y<j ) = LLM_θ (x, y_{<j}),x = Concatenate(P; I; Q)\\
 L_θ = -\sum_{j=1}^{|y|}log P_θ (y_j | x, y_{<j} )
 $$
-where I = T (v, A, $$\{N_v\}_{v∈V}$$, $$\{E_e\}_{e∈E}$$​) is the graph structure description centering at node v ∈ V, L denotes the NLL loss, P and Q are the task specific instruction prefix and query. P = ‘Classify the central node into one of the following categories: [<All category>]. Pay attention to the multi-hop link relationships between the nodes.’ and Q = ‘Which category should {v} be classified as?’.
+Where I = T (v, A, $$\{N_v\}_{v∈V}$$, $$\{E_e\}_{e∈E}$$​) is the graph structure description centering at node v ∈ V, L denotes the NLL loss, P and Q are the task specific instruction prefix and query. P = ‘Classify the central node into one of the following categories: [<All category>]. Pay attention to the multi-hop link relationships between the nodes.’ and Q = ‘Which category should {v} be classified as?’.
 
 ![image-20241020105002395](./GLM.assets/image-20241020105002395.png)
 

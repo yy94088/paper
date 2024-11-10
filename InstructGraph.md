@@ -1,19 +1,20 @@
 #### Title:
 
-InstructGraph: Boosting Large Language Models via Graph-centric Instruction Tuning and Preference Alignment
+InstructGraph: Boosting Large Language Models via Graph-centric Instruction Tuning and Preference Alignment. (ACL 2024 2)
 
 #### Background:
 
-Currently, large language models (LLMs) have succeeded in reasoning on textual data. However, there also exists rich information in graph data, that is difficult to represent using plain text. To endow LLMs with the ability to solve graph tasks, a series of works focus on designing the interface (prompt engineering) of LLMs on graph data to make them understand the semantics without parameter optimization , or injecting the graph embeddings into the partial parameters of LLMs through graph neural networks (GNNs). Two challenges:
+Currently, large language models (LLMs) have succeeded in reasoning on textual data. However, there also exists rich information in grah data, that is difficult to represent using plain text. To endow LLMs with the ability to solve graph tasks, a series of works focus on designing the interface (prompt engineering) of LLMs on graph data to make them understand the semantics without parameter optimization , or injecting the graph embeddings into the partial parameters of LLMs through graph neural networks (GNNs). Two challenges:
 
 1) There still exists a semantic gap between graph and text, which may impede the LLM in graph reasoning and generation.
 2) LLMs tend to generate hallucinations which may be caused by fabricated erroneous inputs or lack of pertinent knowledge.
 
-A straightforward approach to solve the first challenge is to use a graph description or graph embeddings.(cause information loss)
+A straightforward approach to solve the first challenge is to use a graph description or graph embeddings.(cause information loss).
 
 #### Innovation:
 
- Inspired by them, we can unify graph data into a code-like universal format to enhance the LLM’s understanding and generation performance on graph tasks. We introduce a structured format verbalizing strategy to transform the graph into a simple code-like format.
+1. Inspired by them, we can unify graph data into a code-like universal format to enhance the LLM’s understanding and generation performance on graph tasks. We introduce a structured format verbalizing strategy to transform the graph into a simple code-like format.
+2. We identify potential hallucination problems in graph tasks and sample negative instances for preference alignment, the target of which is to enhance the output’s reliability of the model.
 
 #### Instruction:
 
@@ -29,7 +30,7 @@ We introduce a structured format verbalizing strategy to transform the graph int
 
 <img src="InstructGraph.assets/image-20241101192615305.png" alt="image-20241101192615305" style="zoom:150%;" />
 
-Formally, given one task graph $$G_i \in D_j$$ , we denote M(·) as the structured format verbalizer, and the original graph can be mapped into a sequence as Ci = M(Gi). For the fundamental format, all nodes (or entities) are listed as a sequence with variable node_list (or entity_list), while all edges (or triples) are listed as a sequence with variable edge_list (or triple_list). For graphs that contain side information, we can simulate the object-oriented language to express the node (or entity).
+Formally, given one task graph $$G_i \in D_j$$ , we denote M(·) as the structured format verbalizer, and the original graph can be mapped into a sequence as $$C_i = M(G_i)$$. For the fundamental format, all nodes (or entities) are listed as a sequence with variable node_list (or entity_list), while all edges (or triples) are listed as a sequence with variable edge_list (or triple_list). For graphs that contain side information, we can simulate the object-oriented language to express the node (or entity).
 
 ![image-20241101194025328](InstructGraph.assets/image-20241101194025328.png)
 
