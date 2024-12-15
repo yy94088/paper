@@ -1,3 +1,11 @@
+### Summary：
+
+Introducing a novel encoding method that translates graph data into sequences directly compatible with LLMs, avoiding the need for intermediary models.
+
+Neighborhood Detail Template and Hop-Field Overview Template: Graph Structure -> Node Sequence
+
+Projector: Node Sequence -> Token Embedding Sequence
+
 #### Title:
 
 LLaGA: Large Language and Graph Assistant (ICML 2024)
@@ -12,7 +20,7 @@ A key advantage of LLMs is their ability to solve various tasks with a single mo
 
 #### Innovation:
 
-we introduce the Large Language and Graph Assistant (LLaGA), a novel framework that seamlessly integrates rich graph-structured data with the massive context awareness skills and comprehension capabilities of Large Language Models.
+We introduce the Large Language and Graph Assistant (LLaGA), a novel framework that seamlessly integrates rich graph-structured data with the massive context awareness skills and comprehension capabilities of Large Language Models.
 
 #### Introduction:
 
@@ -40,32 +48,44 @@ $$k^{th}$$ hop neighborhood set surrounding the node $$v$$:$$\mathcal N^k_v$$
 
 The first step involves converting graphs into node embedding sequences.
 
-1. Neighborhood Detail Template: From the 1-hop neighbor set of $$v$$, denoted as $$\mathcal N^1_v$$, we randomly select n1 nodes to form a new neighbor set $$\widetilde{\mathcal{N}}_{v}^{1}$$. If the size of $$\mathcal N^1_v$$ is smaller than$$n_1$$, i.e.,$$|\widetilde{\mathcal{N}_v^1}|<n_1$$. we supplement the set with placeholder nodes to reach a size of $$n_1$$​​.We further integrate a Laplacian Embedding at each sequence position, enhancing the representation of structural information.
+![image-20241115140232475](LLaGA.assets/image-20241115140232475.png)
+
+1. Neighborhood Detail Template: From the 1-hop neighbor set of $$v$$, denoted as $$\mathcal N^1_v$$, we randomly select $$n_1$$ nodes to form a new neighbor set $$\widetilde{\mathcal{N}}_{v}^{1}$$. If the size of $$\mathcal N^1_v$$ is smaller than $$n_1$$, i.e.,$$|\widetilde{\mathcal{N}_v^1}|<n_1$$. We supplement the set with placeholder nodes to reach a size of $$n_1$$.Subsequently, for each node in $$\widetilde{\mathcal{N}}_{v}^{1}$$, we recursively sample $$n_2$$ neighbors as its children. We then perform a level-order traversal on the computational tree, transforming the comprehensive details of the central node and its neighborhood into a fixed-length node sequence. 
+   
+   We further integrate a Laplacian Embedding at each sequence position, enhancing the representation of structural information. Denoting the adjacency matrix of the computational tree by $$A_{tree}$$, the Laplacian Embedding is defined as the eigenvectors of the Laplacian matrix of $$A_{tree}$$:
    $$
    L=I-\mathcal{D}^{-\frac12}\mathcal{A}_{tree}\mathcal{D}^{-\frac12}=U^T\Lambda U
    $$
+   D represents the degree matrix of $$A_{tree}$$ and U symbolizes the Laplacian Embedding of the template.
+   
    The process is outlined as follows: Let $$v_1, v_2, ..., v_n$$ represent the encoded node sequence. The final node embedding $$h_{v_i} $$for $$v_i$$​ is given by
    $$
    h_{v_i}=\begin{cases}\mathbf{0}&\mid\mid U_i,&\text{if }v_i=[pad];\\\phi(x_{v_i})&\mid\mid U_i,&\text{otherwise,}\end{cases}
    $$
-   where $$\|$$ denotes concatenation. 
-
+   $$\|$$ denotes concatenation, $$\phi$$ dennotes encoding models .  Subsequently, the central node and its structural information are transformed into the node embedding sequence $$h_{v_1} , h_{v_2} , ..., h_{v_n}$$.
+   
 2. Hop-Field Overview Template:
 
 $$
 h_v^i=\frac1{|\mathcal{N}_v^1|}\sum_{v^{\prime}\in\mathcal{N}_v^1}h_{v^{\prime}}^{i-1}
 $$
 
-To enhance the natural comprehension of graph inputs by Large Language Models (LLMs), it is essential to align the node embedding space with the input token space. In our framework, this transformation is facilitated by a simple MLP serving as the projector.
+Unlike the Neighborhood Detail Template, which utilizes individual embeddings for each neighbor, the HopField Overview Template summarizes each hop’s neighbors with a single embedding.
+
+To enhance the natural comprehension of graph inputs by Large Language Models (LLMs), it is essential to align the node embedding space with the input token space. This alignment is realized by mapping each node embedding into the token embedding space, utilizing a specifically calibrated projector, denoted as $$f_θ$$
 $$
 e_i=f_\theta(h_i)
 $$
+
+In our framework, this transformation is facilitated by a simple MLP serving as the projector.
+
+![image-20241115152111871](LLaGA.assets/image-20241115152111871.png)
 
 ##### Alignment Tuning:
 
 In the input processing phase, we tokenize all words in the prompt and convert them into their respective token embeddings.
 $$
-\max_{\theta}\mathrm{imize~}p(X_{answer}|X_{graph},X_{question},X_{system})
+\underset{\theta}{\operatorname*{maximize}}p(X_{answer}|X_{graph},X_{question},X_{system})
 $$
 
 #### Experimental Results:

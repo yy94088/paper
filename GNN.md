@@ -10,31 +10,77 @@
 
 ### Recurrent graph neural networks (RecGNNs)
 
+They assume a node in a graph constantly exchanges information/message with its neighbors until a stable equilibrium is reached. 
+
 ### Convolutional graph neural networks (ConvGNNs)
+
+The main idea is to generate a node v’s representation by aggregating its own features xv and neighbors’ features xu, where u 2 N(v). Different from RecGNNs, ConvGNNs stack multiple graph convolutional layers to extract high-level node representations.
 
 ### Graph autoencoders (GAEs)
 
+GAEs are unsupervised learning frameworks which encode nodes/graphs into a latent vector space and reconstruct graph data from the encoded information. GAEs are used to learn network embeddings and graph generative distributions.
+
 ### Spatial-temporal graph neural networks (STGNNs)
+
+The key idea of STGNNs is to consider spatial dependency and temporal dependency at the same time.
 
 ## Frameworks：
 
-### Different graph analytics tasks：
+### Different graph analytics tasks
 
 #### Node-level
 
+Node-level outputs relate to node regression and node classification tasks.
+
 #### Edge-level
 
+Edge-level outputs relate to the edge classification and link prediction tasks.
+
 #### Graph-level
+
+Graph-level outputs relate to the graph classification task.
 
 ### Training Frameworks：
 
 #### Semi-supervised learning for node-level classification
 
+Given a single network with partial nodes being labeled and others remaining unlabeled, ConvGNNs can learn a robust model that effectively identifies the class labels for the unlabeled nodes.
+
 #### Supervised learning for graph-level classification
+
+The end-to-end learning for this task can be realized with a combination of graph convolutional layers, graph pooling layers, and/or readout layers.
 
 #### Unsupervised learning for graph embedding
 
+When no class labels are available in graphs, we can learn the graph embedding in a purely unsupervised way in an endto-end framework. 
+
+One simple way is to adopt an autoencoder framework where the encoder employs graph convolutional layers to embed the graph into the latent representation upon which a decoder is used to reconstruct the graph structure.
+
+Another popular way is to utilize the negative sampling approach which samples a portion of node pairs as negative pairs while existing node pairs with links in the graphs are positive pairs. Then a logistic regression layer is applied to distinguish between positive and negative pairs.
+
 # Recurrent Graph Neural Networks
+
+$$
+\mathbf{h}_v^{(t)}=\sum_{u\in N(v)}f(\mathbf{x}_v,\mathbf{x}^\mathbf{e}_{(v,u)},\mathbf{x}_u,\mathbf{h}_u^{(t-1)})
+$$
+
+### Gated Graph Neural Network (GGNN)
+
+$$
+\mathbf{h}_{v}^{(t)}=GRU(\mathbf{h}_{v}^{(t-1)},\sum_{u\in N(v)}\mathbf{Wh}_{u}^{(t-1)})
+$$
+
+GGNN uses the back-propagation through time (BPTT) algorithm to learn the model parameters.
+
+This can be problematic for large graphs, as GGNN needs to run the recurrent function multiple times over all nodes, requiring the intermediate states of all nodes to be stored in memory.
+
+### Stochastic Steady-state Embedding (SSE)
+
+$$
+\mathbf{h}_{v}^{(t)}=(1-\alpha)\mathbf{h}_{v}^{(t-1)}+\alpha\mathbf{W_{1}}\sigma(\mathbf{W_{2}}[\mathbf{x}_{v},\sum_{u\in N(v)}[\mathbf{h}_{u}^{(t-1)},\mathbf{x}_{u}]])
+$$
+
+
 
 # CONVOLUTIONAL GRAPH NEURAL NETWORKS
 

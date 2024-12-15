@@ -4,20 +4,17 @@ G-Retriever: Retrieval-Augmented Generation for Textual Graph Understanding and 
 
 #### Background:
 
-The advent of LLMs has significantly shaped the artificial intelligence landscape. While existing works integrate LLMs and
-GNNs in various ways, they mostly focus on conventional graph tasks such as node, edge and graph classification, or answering simple questions on small or synthetic graphs. 
+The advent of LLMs has significantly shaped the artificial intelligence landscape. While existing works integrate LLMs and GNNs in various ways, they mostly focus on conventional graph tasks such as node, edge and graph classification, or answering simple questions on small or synthetic graphs. 
 
 #### Innovation:
 
-We develop a flexible question-answering framework targeting complex and real-world graphs. This framework enables users to ‘chat with their graph’ via a unified conversational interface, representing a leap towards intuitive interaction with graph data. We propose our G-Retriever method, introducing the first retrieval-augmented generation (RAG) approach for general textual graphs,
-which can be fine-tuned to enhance graph understanding via soft prompting.
+We develop a flexible question-answering framework targeting complex and real-world graphs. This framework enables users to ‘chat with their graph’ via a unified conversational interface, representing a leap towards intuitive interaction with graph data. We propose our G-Retriever method, introducing the first retrieval-augmented generation (RAG) approach for general textual graphs, which can be fine-tuned to enhance graph understanding via soft prompting.
 
 ![image-20241027125431236](./G-Retriever.assets/image-20241027125431236.png)
 
 ##### The Need for a Comprehensive GraphQA Benchmark:
 
-In contrast to existing benchmarks that focus on basic graph-based reasoning tasks such as node degree, edge existence, and
-shortest path, our benchmark addresses complex and real-world graph applications including common sense reasoning, scene understanding, and knowledge graph reasoning.
+In contrast to existing benchmarks that focus on basic graph-based reasoning tasks such as node degree, edge existence, and shortest path, our benchmark addresses complex and real-world graph applications including common sense reasoning, scene understanding, and knowledge graph reasoning.
 
 ##### New Architecture for GraphQA:
 
