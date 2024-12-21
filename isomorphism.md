@@ -1,3 +1,33 @@
+### Title:
+
+In-Memory Subgraph Matching: An In-depth Study
+
+### Summarization:
+
+1. GraphQL的过滤方法与最新的算法CFL、CECI、DP-iso也有竞争力
+2. GraphQL和RI的排序方法通常是最有效的
+3. CCIE和DP-iso中基于集合交集的局部候选计算在枚举中表现最好
+4. DP-iso 中的失败集修剪可以显着提高查询集变大时的性能
+
+### Introduction:
+
+1. exploration-based method
+
+2. state space representation
+3. constraint programming
+
+![image-20241216143619241](isomorphism.assets/image-20241216143619241.png)
+
+1. direct-enumeration (QuickSI, RI and VF2++)
+2. indexing-enumeration (GADDI, SPath and SGMatch)
+3. preprocessing-enumeration (GraphQL, TurboIso, CFL, CECI and DP-iso)
+
+### Related Work:
+
+![image-20241216160000407](isomorphism.assets/image-20241216160000407.png)
+
+
+
 ##### LDF:
 
 label and degree filtering $$C(u)=\{v\in V(G)|L(v)=L(u)\wedge d(v)\geqslant d(u)\}$$
