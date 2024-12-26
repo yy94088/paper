@@ -4,6 +4,10 @@
 
 https://pytorch.org/get-started/locally/
 
+老版本
+
+https://pytorch.org/get-started/previous-versions/
+
 **使用shell查看**
 
 ```shell
@@ -115,7 +119,7 @@ https://blog.csdn.net/hjxu2016/article/details/135128492
 在服务器上，你可以使用 `wget` 命令直接下载：
 
 ```bash
-wget https://developer.download.nvidia.com/compute/cuda/12.2.0/local_installers/cuda_12.2.0_535.54.03_linux.run
+wget https://developer.download.nvidia.com/compute/cuda/12.2.0/local_installers/cuda_11.8.0_520.61.05_linux.run
 ```
 
 2. **解压并安装到本地用户目录**
@@ -123,26 +127,26 @@ wget https://developer.download.nvidia.com/compute/cuda/12.2.0/local_installers/
 1. **给 .run 文件赋予可执行权限**：
 
    ```bash
-   chmod +x cuda_12.2.0_535.54.03_linux.run
+   chmod +x cuda_11.8.0_520.61.05_linux.run
    ```
 
 2. **运行安装文件**（不使用 `sudo`）：
 
    ```bash
-   ./cuda_12.2.0_535.54.03_linux.run --silent --toolkit --override --installpath=$HOME/cuda-12.2
+   ./cuda_11.8.0_520.61.05_linux.run --silent --toolkit --override --installpath=$HOME/cuda-11.8
    ```
 
-   - 这会将 CUDA Toolkit 安装到你用户目录的 `$HOME/cuda-12.2` 中。
+   - 这会将 CUDA Toolkit 安装到你用户目录的 `$HOME/cuda-11.8` 中。
    - 选项说明：
      - `--silent`：静默安装模式，不需要交互。
      - `--toolkit`：只安装 CUDA Toolkit，不安装驱动（因为没有 `sudo` 权限）。
      - `--override`：忽略权限问题。
-     - `--installpath`：指定安装路径为用户目录下的 `cuda-12.2`。
+     - `--installpath`：指定安装路径为用户目录下的 `cuda-11.8`。
 
 3. **验证安装**：
 
    ```
-   ls $HOME/cuda-12.2
+   ls $HOME/cuda-11.8
    ```
 
    你应该能看到 `bin`, `lib64` 等文件夹。
@@ -160,8 +164,8 @@ wget https://developer.download.nvidia.com/compute/cuda/12.2.0/local_installers/
 - **在文件末尾添加以下内容**：
 
   ```bash
-  export PATH=$HOME/cuda-12.2/bin:$PATH
-  export LD_LIBRARY_PATH=$HOME/cuda-12.2/lib64:$LD_LIBRARY_PATH
+  export PATH=$HOME/cuda-11.8/bin:$PATH
+  export LD_LIBRARY_PATH=$HOME/cuda-11.8/lib64:$LD_LIBRARY_PATH
   ```
 
 - **使配置生效**：
@@ -182,21 +186,11 @@ wget https://developer.download.nvidia.com/compute/cuda/12.2.0/local_installers/
 
   ```
   nvcc: NVIDIA (R) Cuda compiler driver
-  Copyright (c) 2005-2023 NVIDIA Corporation
-  Built on ...
-  Cuda compilation tools, release 12.2, V12.2.x
+  Copyright (c) 2005-2022 NVIDIA Corporation
+  Built on ....
+  Cuda compilation tools, release 11.8, V11.8.89
+  Build cuda_11.8.r11.8/compiler.31833905_0
   ```
-
-- **运行 CUDA 示例**： 你可以使用 CUDA 自带的示例进行测试。首先下载示例代码：
-
-  ```bash
-  cuda-install-samples-12.2.sh ~/
-  cd ~/NVIDIA_CUDA-12.2_Samples/1_Utilities/deviceQuery
-  make
-  ./deviceQuery
-  ```
-
-  如果显示 **Result = PASS**，则说明安装成功。
 
 
 
