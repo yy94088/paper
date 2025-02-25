@@ -49,7 +49,7 @@ if there exists $$l \in L(N (u))$$ such that$$|N(u,l)|>|N(\upsilon,l)$$ where$$L
 
 直接枚举，不生成候选顶点集，使用一些过滤规则在枚举过程中修剪无效顶点
 
-##### GraphQ
+##### GraphQL
 
 1. 局部修剪 local pruning 基于u的邻域子图生成C(u)通过比较节点的profile筛选，profile是节点r跳内节点的标签按照字典序排列形成的一个字符串
 
